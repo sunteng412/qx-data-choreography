@@ -1,7 +1,8 @@
-package com.linqingxuan.datachoreograogy.starter;
+package com.linqingxuan.datachoreography.starter;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.DependsOn;
 
 /**
  * 启动类
