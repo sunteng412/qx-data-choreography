@@ -29,6 +29,7 @@
 |                          | data-choreography-dubbo-fade       | dubbo作为门面，其他三方模块只需引入该依赖并且设置dubbo配置即可使用 |      |
 |                          |                                    |                                                              |      |
 
-
-### 流程如下
+#### 项目流程如下
+![flawt1.jpg](flawt1.jpg)
+### 业务流程如下
 ![flawt.jpg](flawt.jpg)
