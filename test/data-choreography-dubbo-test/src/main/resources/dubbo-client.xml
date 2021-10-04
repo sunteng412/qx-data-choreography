@@ -10,10 +10,10 @@
     <!--    <dubbo:registry address="N/A"/>-->
     <dubbo:registry address="zookeeper://127.0.0.1:2181"/>
 
-    <dubbo:reference id="activityInterface" interface="com.linqingxuan.datachoreography.test.dubbo.activity.ActivityInterface" check="true"
+    <dubbo:reference id="activityInterface" protocol="dubbo" interface="com.linqingxuan.datachoreography.test.dubbo.activity.ActivityInterface" check="true"
                      version="1.0.0"/>
 
-    <dubbo:reference id="itemInterface" interface="com.linqingxuan.datachoreography.test.dubbo.item.ItemInterface" check="true"
+    <dubbo:reference id="itemInterface" protocol="dubbo" interface="com.linqingxuan.datachoreography.test.dubbo.item.ItemInterface" check="true"
                      version="1.0.0"/>
 
 </beans>
