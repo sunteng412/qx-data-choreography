@@ -47,4 +47,17 @@
 
     </dependencies>
 
+    <distributionManagement>
+        <repository>
+            <id>maven-pub</id>
+            <name>maven  Repository</name>
+            <url>https://repo1.maven.org/maven2/</url>
+        </repository>
+        <snapshotRepository>
+            <id>aliyun</id>
+            <name>aliyun  Repository</name>
+            <url>https://maven.aliyun.com/mvn/guide/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
 </project>

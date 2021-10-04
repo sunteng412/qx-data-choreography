@@ -13,7 +13,6 @@ import java.util.List;
  * @description:
  * @version    :
  */
-@Component
 public class ItemInterfaceImpl implements ItemInterface{
     /**
      * 根据商品id和店铺或者商品详情

@@ -7,14 +7,15 @@
     <dubbo:application name="dubbo-server"/>
 
     <!--配置注册中心 "N/A"表示不需要注册中心-->
-    <dubbo:registry id="zk1" address="zookeeper://127.0.0.1:2182"/>
+    <dubbo:registry  address="zookeeper://127.0.0.1:2181"/>
 
     <!--配置协议-->
-    <dubbo:protocol name="dubbo" port="20880"/>
+    <dubbo:protocol  port="20880"/>
 
     <!--商品 -->
-    <dubbo:service protocol="dubbo" register="zk1" interface="com.linqingxuan.datachoreography.test.dubbo.item.ItemInterface" ref="itemInterfaceImpl" version="1.0.0"/>
+    <dubbo:service  interface="com.linqingxuan.datachoreography.test.dubbo.item.ItemInterface" ref="itemInterfaceImpl" version="1.0.0"/>
+    <bean id="itemInterfaceImpl" class="com.linqingxuan.datachoreography.test.dubbo.item.ItemInterfaceImpl"/>
 
-    <dubbo:service protocol="dubbo" register="zk1" interface="com.linqingxuan.datachoreography.test.dubbo.activity.ActivityInterface" ref="activityInterfaceImpl" version="1.0.0"/>
-
+    <dubbo:service interface="com.linqingxuan.datachoreography.test.dubbo.activity.ActivityInterface" ref="activityInterfaceImpl" version="1.0.0"/>
+    <bean id="activityInterfaceImpl" class="com.linqingxuan.datachoreography.test.dubbo.activity.ActivityInterfaceImpl"/>
 </beans>

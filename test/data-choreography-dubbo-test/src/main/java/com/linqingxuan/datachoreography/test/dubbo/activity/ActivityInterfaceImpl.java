@@ -13,7 +13,6 @@ import java.util.List;
  * @description:
  * @version    :
  */
-@Component
 public class ActivityInterfaceImpl implements ActivityInterface{
 
 
