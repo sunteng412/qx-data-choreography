@@ -13,8 +13,8 @@
     <dubbo:protocol name="dubbo" port="20880"/>
 
     <!--商品 -->
-    <dubbo:service register="zk1" interface="com.linqingxuan.datachoreography.test.dubbo.item.ItemInterface" ref="itemInterfaceImpl" version="1.0.0"/>
+    <dubbo:service protocol="dubbo" register="zk1" interface="com.linqingxuan.datachoreography.test.dubbo.item.ItemInterface" ref="itemInterfaceImpl" version="1.0.0"/>
 
-    <dubbo:service register="zk1" interface="com.linqingxuan.datachoreography.test.dubbo.activity.ActivityInterface" ref="activityInterfaceImpl" version="1.0.0"/>
+    <dubbo:service protocol="dubbo" register="zk1" interface="com.linqingxuan.datachoreography.test.dubbo.activity.ActivityInterface" ref="activityInterfaceImpl" version="1.0.0"/>
 
 </beans>
