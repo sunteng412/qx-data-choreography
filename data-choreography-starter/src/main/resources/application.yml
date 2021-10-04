@@ -1,1 +1,4 @@
-
+spring:
+  # config active
+  profiles:
+    active: '@activatedProperties@'

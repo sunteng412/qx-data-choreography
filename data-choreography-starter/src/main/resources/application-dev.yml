@@ -1,0 +1,14 @@
+dubbo:
+  application:
+    name: data-choreography-starter-dev
+  protocol:
+    name: dubbo
+  registry:
+    protocol: zookeeper
+    timeout: 1000
+    address: 127.0.0.1:2181
+  scan:
+    basePackages: com.linqingxuan.datachoreography.starter.service
+  service:
+    version:
+      dataFade: 1.0.0-dev
