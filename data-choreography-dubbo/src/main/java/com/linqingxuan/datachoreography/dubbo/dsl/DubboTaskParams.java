@@ -52,7 +52,7 @@ public class DubboTaskParams implements Serializable {
     private String version;
 
     /**
-     * 注册中心Id
+     * 注册中心addr
      * */
     private String registryAddr;
 
