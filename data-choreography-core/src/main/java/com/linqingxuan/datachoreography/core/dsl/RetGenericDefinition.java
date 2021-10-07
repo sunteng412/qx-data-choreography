@@ -17,9 +17,9 @@ public class RetGenericDefinition implements Serializable {
     private static final long serialVersionUID = -5795089018013798231L;
 
     /**
-     * ognl表达式判断返回json是否正确
+     * jsonpath表达式判断返回json是否失败
      * */
-    private String successDetermination;
+    private String falseDetermination;
 
     /**
      * 返回数据结果映射字段

@@ -7,9 +7,6 @@ import com.alibaba.dubbo.config.utils.ReferenceConfigCache;
 import com.alibaba.dubbo.rpc.service.GenericService;
 import com.alibaba.fastjson.JSON;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * 泛华调用
  * @author     : longchuan

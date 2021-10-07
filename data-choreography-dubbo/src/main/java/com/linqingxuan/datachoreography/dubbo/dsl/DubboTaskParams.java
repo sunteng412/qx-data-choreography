@@ -52,9 +52,9 @@ public class DubboTaskParams implements Serializable {
     private String version;
 
     /**
-     * 接口版本
+     * 注册中心Id
      * */
-    private String registryId;
+    private String registryAddr;
 
     /**
      * 输入类型定义
