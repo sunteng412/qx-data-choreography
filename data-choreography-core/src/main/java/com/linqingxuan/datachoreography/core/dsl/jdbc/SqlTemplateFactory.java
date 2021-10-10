@@ -1,9 +1,12 @@
 package com.linqingxuan.datachoreography.core.dsl.jdbc;
 
 
+import com.linqingxuan.datachoreography.core.dsl.constant.Constants;
+import com.linqingxuan.datachoreography.core.dsl.constant.ExtConfig;
 import com.linqingxuan.datachoreography.core.dsl.jdbc.datasource.DataSourceProvider;
 import com.linqingxuan.datachoreography.core.spi.ExtensionLoader;
 import javax.sql.DataSource;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -16,9 +19,11 @@ public class SqlTemplateFactory {
 
     private static final ConcurrentMap<DataSource, SqlTemplate> HOLDER = new ConcurrentHashMap<DataSource, SqlTemplate>();
 
-    public static SqlTemplate create(DataConfig dataConfig) {
-        DataSourceProvider dataSourceProvider = ExtensionLoader.getExtensionLoader(DataSourceProvider.class).getJoin();
-        DataSource dataSource = dataSourceProvider.getDataSource(dataConfig);
+    public static SqlTemplate create(Map<String, Object> dataSourceProps) {
+        DataSourceProvider dataSourceProvider = ExtensionLoader.getExtensionLoader(DataSourceProvider.class).getJoin(
+                ExtConfig.getParams(dataSourceProps,ExtConfig.DB_SPI));
+
+        DataSource dataSource = dataSourceProvider.getDataSource(dataSourceProps);
         SqlTemplate sqlTemplate = HOLDER.get(dataSource);
 
         if (sqlTemplate != null) {

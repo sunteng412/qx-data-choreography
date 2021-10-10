@@ -1,28 +1,30 @@
 package com.linqingxuan.datachoreography.core.dsl.jdbc;
 
-import com.github.ltsopensource.core.cluster.Config;
-import com.github.ltsopensource.core.commons.file.FileUtils;
-import com.github.ltsopensource.core.constant.Constants;
-import com.github.ltsopensource.core.constant.ExtConfig;
-import com.github.ltsopensource.core.exception.LtsRuntimeException;
-import com.github.ltsopensource.store.jdbc.exception.JdbcException;
 import com.linqingxuan.datachoreography.core.dsl.constant.Constants;
+import com.linqingxuan.datachoreography.core.dsl.constant.ExtConfig;
 import com.linqingxuan.datachoreography.core.dsl.file.FileUtils;
+import com.linqingxuan.datachoreography.core.dsl.jdbc.exception.JdbcException;
+import com.linqingxuan.datachoreography.core.utils.BizException;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
 
 /**
- * @author Robert HG (254963746@qq.com) on 5/19/15.
+ * 表映射实体领域对象
+ * @author     : longchuan
+ * @date       : 2021/10/9 5:57 下午
+ * @description:
+ * @version    :
  */
 public abstract class JdbcAbstractAccess {
 
     private SqlTemplate sqlTemplate;
-    private Config config;
+    private Map<String, Object> dataSourceProps;
 
-    public JdbcAbstractAccess(Config config) {
-        this.config = config;
-        this.sqlTemplate = SqlTemplateFactory.create(config);
+    public JdbcAbstractAccess(Map<String, Object> dataSourceProps) {
+        this.dataSourceProps = dataSourceProps;
+        this.sqlTemplate = SqlTemplateFactory.create(dataSourceProps);
     }
 
     public SqlTemplate getSqlTemplate() {
@@ -34,7 +36,7 @@ public abstract class JdbcAbstractAccess {
         try {
             return FileUtils.read(is, Constants.CHARSET);
         } catch (IOException e) {
-            throw new LtsRuntimeException("Read sql file : [" + path + "] error ", e);
+            throw new BizException("Read sql file : [" + path + "] error ", e);
         }
     }
 
@@ -44,7 +46,7 @@ public abstract class JdbcAbstractAccess {
     }
 
     protected void createTable(String sql) throws JdbcException {
-        if (config.getParameter(ExtConfig.NEED_CREATE_DB_TABLE, true)) {
+        if (ExtConfig.getParams(dataSourceProps,ExtConfig.NEED_CREATE_TABLE)) {
             try {
                 getSqlTemplate().createTable(sql);
             } catch (Exception e) {
