@@ -23,4 +23,9 @@ public interface Constants {
       * dsl配置表名
       * */
      String DSL_CONFIG_TABLE = "qx_dsl_config";
+
+      /**
+       * dsl任务节点表
+       * */
+      String DSL_TASK_CONFIG_TABLE = "qx_dsl_task";
 }

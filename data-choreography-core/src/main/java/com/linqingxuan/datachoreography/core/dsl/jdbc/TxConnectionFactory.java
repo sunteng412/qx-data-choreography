@@ -1,7 +1,5 @@
 package com.linqingxuan.datachoreography.core.dsl.jdbc;
 
-import com.github.ltsopensource.core.logger.Logger;
-import com.github.ltsopensource.core.logger.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -12,7 +10,6 @@ import java.sql.SQLException;
  */
 public class TxConnectionFactory {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TxConnectionFactory.class);
 
     private static final ThreadLocal<Connection> TRANSACT_CONN = new ThreadLocal<Connection>();
 
@@ -40,7 +37,6 @@ public class TxConnectionFactory {
                 conn.close();
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(), e);
         } finally {
             TRANSACT_CONN.set(null);
         }

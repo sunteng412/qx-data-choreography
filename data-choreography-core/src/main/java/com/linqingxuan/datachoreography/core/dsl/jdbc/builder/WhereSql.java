@@ -1,6 +1,7 @@
 package com.linqingxuan.datachoreography.core.dsl.jdbc.builder;
 
-import com.github.ltsopensource.core.commons.utils.StringUtils;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.LinkedList;
 import java.util.List;

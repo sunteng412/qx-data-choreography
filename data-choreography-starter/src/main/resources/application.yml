@@ -2,13 +2,14 @@ spring:
   # config active
   profiles:
     active: '@activatedProperties@'
+
 #数据编排数据库
 data-choreography:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
     password: 111111
     type: com.zaxxer.hikari.HikariDataSource
-    jdbcUrl: jdbc:mysql://127.0.0.1:3306/db0?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+    jdbcUrl: jdbc:mysql://127.0.0.1:3306/dsl?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
     minimumIdle: 50
     maximumPoolSize: 5
     connectionTimeout: 3000

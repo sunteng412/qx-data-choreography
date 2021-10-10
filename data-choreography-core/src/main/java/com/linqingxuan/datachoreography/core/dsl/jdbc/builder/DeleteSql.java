@@ -1,11 +1,10 @@
 package com.linqingxuan.datachoreography.core.dsl.jdbc.builder;
 
-import com.github.ltsopensource.core.commons.utils.StringUtils;
-import com.github.ltsopensource.core.logger.Logger;
-import com.github.ltsopensource.core.logger.LoggerFactory;
-import com.github.ltsopensource.store.jdbc.SQLFormatter;
-import com.github.ltsopensource.store.jdbc.SqlTemplate;
-import com.github.ltsopensource.store.jdbc.exception.JdbcException;
+
+import com.linqingxuan.datachoreography.core.dsl.jdbc.SQLFormatter;
+import com.linqingxuan.datachoreography.core.dsl.jdbc.SqlTemplate;
+import com.linqingxuan.datachoreography.core.dsl.jdbc.exception.JdbcException;
+import org.apache.commons.lang3.StringUtils;
 
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -16,7 +15,6 @@ import java.util.List;
  */
 public class DeleteSql {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DeleteSql.class);
 
     private SqlTemplate sqlTemplate;
     private StringBuilder sql = new StringBuilder();
@@ -164,9 +162,6 @@ public class DeleteSql {
     public int doDelete() {
         String finalSQL = getSQL();
         try {
-            if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug(SQLFormatter.format(finalSQL));
-            }
             return sqlTemplate.delete(finalSQL, params.toArray());
         } catch (SQLException e) {
             throw new JdbcException("Delete SQL Error:" + SQLFormatter.format(finalSQL), e);

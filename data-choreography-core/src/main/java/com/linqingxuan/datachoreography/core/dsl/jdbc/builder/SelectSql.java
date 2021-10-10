@@ -1,12 +1,10 @@
 package com.linqingxuan.datachoreography.core.dsl.jdbc.builder;
 
-import com.github.ltsopensource.core.commons.utils.StringUtils;
-import com.github.ltsopensource.core.logger.Logger;
-import com.github.ltsopensource.core.logger.LoggerFactory;
-import com.github.ltsopensource.store.jdbc.SQLFormatter;
-import com.github.ltsopensource.store.jdbc.SqlTemplate;
-import com.github.ltsopensource.store.jdbc.dbutils.ResultSetHandler;
-import com.github.ltsopensource.store.jdbc.exception.JdbcException;
+import com.linqingxuan.datachoreography.core.dsl.jdbc.SQLFormatter;
+import com.linqingxuan.datachoreography.core.dsl.jdbc.SqlTemplate;
+import com.linqingxuan.datachoreography.core.dsl.jdbc.dbutils.ResultSetHandler;
+import com.linqingxuan.datachoreography.core.dsl.jdbc.exception.JdbcException;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -15,8 +13,6 @@ import java.util.List;
  * @author Robert HG (254963746@qq.com) on 3/8/16.
  */
 public class SelectSql {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(SelectSql.class);
 
     private SqlTemplate sqlTemplate;
     private StringBuilder sql = new StringBuilder();
@@ -263,11 +259,6 @@ public class SelectSql {
     public <T> T single() {
         String finalSQL = getSQL();
         try {
-
-            if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug(SQLFormatter.format(finalSQL));
-            }
-
             return sqlTemplate.queryForValue(finalSQL, params.toArray());
         } catch (Exception e) {
             throw new JdbcException("Select SQL Error:" + SQLFormatter.format(finalSQL), e);
