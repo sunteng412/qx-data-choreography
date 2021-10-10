@@ -10,16 +10,17 @@ import java.util.Map;
  * @return
  * @description:
  */
-public class MysqlDatDslAccess extends MysqlJdbcAbstractAccess {
-    public MysqlDatDslAccess(Map<String, Object> dataSourceProps) {
+public class MysqlDataDslTaskAccess extends MysqlJdbcAbstractAccess {
+    public MysqlDataDslTaskAccess(Map<String, Object> dataSourceProps) {
         super(dataSourceProps);
-        createTable(readSqlFile("sql/mysql/qx_dsl_config.sql", getTableName()));
+        createTable(readSqlFile("sql/mysql/qx_dsl_task.sql", getTableName()));
     }
 
     @Override
     protected String getTableName() {
-        return Constants.DSL_CONFIG_TABLE;
+        return Constants.DSL_TASK_CONFIG_TABLE;
     }
+
 
 
 }

@@ -1,12 +1,10 @@
 package com.linqingxuan.datachoreography.core.dsl.jdbc.builder;
 
-import com.github.ltsopensource.core.logger.Logger;
-import com.github.ltsopensource.core.logger.LoggerFactory;
-import com.github.ltsopensource.store.jdbc.SQLFormatter;
-import com.github.ltsopensource.store.jdbc.SqlTemplate;
-import com.github.ltsopensource.store.jdbc.exception.DupEntryException;
-import com.github.ltsopensource.store.jdbc.exception.JdbcException;
-import com.github.ltsopensource.store.jdbc.exception.TableNotExistException;
+import com.linqingxuan.datachoreography.core.dsl.jdbc.SQLFormatter;
+import com.linqingxuan.datachoreography.core.dsl.jdbc.SqlTemplate;
+import com.linqingxuan.datachoreography.core.dsl.jdbc.exception.DupEntryException;
+import com.linqingxuan.datachoreography.core.dsl.jdbc.exception.JdbcException;
+import com.linqingxuan.datachoreography.core.dsl.jdbc.exception.TableNotExistException;
 
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -16,8 +14,6 @@ import java.util.List;
  * @author Robert HG (254963746@qq.com) on 3/8/16.
  */
 public class InsertSql {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(InsertSql.class);
 
     private SqlTemplate sqlTemplate;
     private StringBuilder sql = new StringBuilder();
@@ -89,9 +85,7 @@ public class InsertSql {
 
         String execSql = sql.toString();
 
-        if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug(execSql);
-        }
+
         try {
             return sqlTemplate.insert(execSql, params.get(0));
         } catch (SQLException e) {
@@ -114,9 +108,7 @@ public class InsertSql {
 
         String finalSQL = sql.toString();
 
-        if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug(SQLFormatter.format(finalSQL));
-        }
+
 
         try {
             Object[][] objects = new Object[params.size()][columnsSize];

@@ -20,4 +20,11 @@ public @interface SPI {
      * @return the string
      */
     String value() default "";
+
+    /**
+     * Value string.
+     *
+     * @return the string
+     */
+    String dftValue() default "";
 }

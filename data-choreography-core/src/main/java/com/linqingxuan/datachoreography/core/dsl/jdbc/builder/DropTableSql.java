@@ -1,18 +1,14 @@
 package com.linqingxuan.datachoreography.core.dsl.jdbc.builder;
 
-import com.github.ltsopensource.core.logger.Logger;
-import com.github.ltsopensource.core.logger.LoggerFactory;
-import com.github.ltsopensource.store.jdbc.SQLFormatter;
-import com.github.ltsopensource.store.jdbc.SqlTemplate;
-import com.github.ltsopensource.store.jdbc.exception.JdbcException;
+
+import com.linqingxuan.datachoreography.core.dsl.jdbc.SQLFormatter;
+import com.linqingxuan.datachoreography.core.dsl.jdbc.SqlTemplate;
+import com.linqingxuan.datachoreography.core.dsl.jdbc.exception.JdbcException;
 
 /**
  * @author Robert HG (254963746@qq.com) on 3/9/16.
  */
 public class DropTableSql {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(DropTableSql.class);
-
     private SqlTemplate sqlTemplate;
     private StringBuilder sql = new StringBuilder();
 
@@ -30,9 +26,6 @@ public class DropTableSql {
         String finalSQL = sql.toString();
 
         try {
-            if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug(SQLFormatter.format(finalSQL));
-            }
 
             sqlTemplate.update(sql.toString());
         } catch (Exception e) {
