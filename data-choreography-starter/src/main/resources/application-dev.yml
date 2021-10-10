@@ -12,3 +12,5 @@ dubbo:
   service:
     version:
       dataFade: 1.0.0-dev
+data-choreography:
+  datasource:

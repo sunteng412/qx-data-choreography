@@ -2,17 +2,15 @@ package com.linqingxuan.datachoreography.core.dsl.jdbc.datasource;
 
 
 import com.google.common.base.Joiner;
+import com.linqingxuan.datachoreography.core.dsl.jdbc.dbutils.DataSourceUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.sql.DataSource;
-import java.lang.reflect.Method;
 import java.util.Map;
-import java.util.StringJoiner;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * druid相关的配置使用 druid. 开头即可
+ * mysql数据源配置
  *
  * @author Robert HG (254963746@qq.com) on 10/24/14.
  */
@@ -24,20 +22,12 @@ public class MysqlDataSourceProvider implements DataSourceProvider {
 
     private static final Object lock = new Object();
 
-    public DataSource getDataSource(Config config) {
-
-        String url = config.getParameter(ExtConfig.JDBC_URL);
-        String username = config.getParameter(ExtConfig.JDBC_USERNAME);
-        String password = config.getParameter(ExtConfig.JDBC_PASSWORD);
-
-        if (StringUtils.isEmpty(url)) {
-            throw new IllegalArgumentException(ExtConfig.JDBC_URL + " should not be empty");
-        }
-        if (StringUtils.isEmpty(ExtConfig.JDBC_USERNAME)) {
-            throw new IllegalArgumentException(ExtConfig.JDBC_USERNAME + " should not be empty");
-        }
-
-        String cachedKey = Joiner.on("-").join(url,username, password);
+    @Override
+    public DataSource getDataSource(Map<String, Object> dataSourceProps) {
+        String jdbcUrl = (String)dataSourceProps.get("jdbcUrl");
+        String cachedKey = Joiner.on("-").join(jdbcUrl,
+                dataSourceProps.get("username"),
+                dataSourceProps.get("password"));
 
         DataSource dataSource = DATA_SOURCE_MAP.get(cachedKey);
         if (dataSource == null) {
@@ -47,77 +37,15 @@ public class MysqlDataSourceProvider implements DataSourceProvider {
                     if (dataSource != null) {
                         return dataSource;
                     }
-                    dataSource = createDruidDataSource(config);
+                    dataSource = DataSourceUtil.getDataSource(dataSourceProps.get("type").toString(), dataSourceProps);
 
                     DATA_SOURCE_MAP.put(cachedKey, dataSource);
                 }
             } catch (Exception e) {
                 throw new IllegalStateException(
-                        String.format("connect datasource failed! url: %s", url), e);
+                        String.format("connect datasource failed! url: %s", jdbcUrl), e);
             }
         }
         return dataSource;
-    }
-
-    private DataSource createDruidDataSource(Config config) {
-        DruidDataSource dataSource = new DruidDataSource();
-        Class<DruidDataSource> clazz = DruidDataSource.class;
-        for (Map.Entry<String, Class<?>> entry : FIELDS.entrySet()) {
-            String field = entry.getKey();
-            String value = config.getParameter("druid." + field);
-            if (StringUtils.isNotEmpty(value)) {
-                Method setMethod = null;
-                try {
-                    try {
-                        setMethod = clazz.getMethod("set" + (field.substring(0, 1).toUpperCase() + field.substring(1))
-                                , entry.getValue());
-                    } catch (NoSuchMethodException e) {
-                        setMethod = clazz.getMethod("set" + (field.substring(0, 1).toUpperCase() + field.substring(1))
-                                , PrimitiveTypeUtils.getUnBoxType(entry.getValue()));
-                    }
-
-                    Object obj = PrimitiveTypeUtils.convert(value, entry.getValue());
-                    setMethod.invoke(dataSource, obj);
-                } catch (Exception e) {
-                    log.warn("set field[{}] failed! value is {}", field, value);
-                }
-            }
-        }
-
-        String url = config.getParameter(ExtConfig.JDBC_URL);
-        String username = config.getParameter(ExtConfig.JDBC_USERNAME);
-        String password = config.getParameter(ExtConfig.JDBC_PASSWORD);
-
-        dataSource.setUrl(url);
-        dataSource.setUsername(username);
-        dataSource.setPassword(password);
-
-        return dataSource;
-    }
-
-    private static final Map<String, Class<?>> FIELDS = new ConcurrentHashMap<String, Class<?>>();
-
-    static {
-        // druid配置属性，see <a href="https://github.com/alibaba/druid/wiki/DruidDataSource%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7%E5%88%97%E8%A1%A8">DruidDataSource配置属性列表</a>
-//        FIELDS.put("url", String.class);
-//        FIELDS.put("username", String.class);
-//        FIELDS.put("password", String.class);
-//        FIELDS.put("driverClassName", String.class);
-        FIELDS.put("initialSize", Integer.class);
-        FIELDS.put("maxActive", Integer.class);
-        FIELDS.put("maxIdle", Integer.class);
-        FIELDS.put("minIdle", Integer.class);
-        FIELDS.put("maxWait", Integer.class);
-        FIELDS.put("poolPreparedStatements", Boolean.class);
-        FIELDS.put("maxOpenPreparedStatements", Integer.class);
-        FIELDS.put("validationQuery", String.class);
-        FIELDS.put("testOnBorrow", Boolean.class);
-        FIELDS.put("testOnReturn", Boolean.class);
-        FIELDS.put("testWhileIdle", Boolean.class);
-        FIELDS.put("timeBetweenEvictionRunsMillis", Long.class);
-        FIELDS.put("numTestsPerEvictionRun", Integer.class);
-        FIELDS.put("minEvictableIdleTimeMillis", Long.class);
-        FIELDS.put("exceptionSorter", String.class);
-        FIELDS.put("filters", String.class);
     }
 }

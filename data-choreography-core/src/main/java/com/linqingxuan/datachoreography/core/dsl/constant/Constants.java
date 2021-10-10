@@ -17,4 +17,10 @@ public interface Constants {
      String USER_HOME = System.getProperty("user.home");
 
      String CHARSET = "UTF-8";
+
+
+     /**
+      * dsl配置表名
+      * */
+     String DSL_CONFIG_TABLE = "qx_dsl_config";
 }

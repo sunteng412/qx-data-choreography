@@ -16,6 +16,16 @@
     </properties>
     <dependencies>
         <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
@@ -63,7 +73,7 @@
 
         <dependency>
             <groupId>com.linqingxuan.data-choreography</groupId>
-            <artifactId>data-choreography-core</artifactId>
+            <artifactId>data-choreography-springboot</artifactId>
             <version>${project.version}</version>
         </dependency>
 
@@ -173,6 +183,6 @@
             </plugin>
         </plugins>
     </build>
-  
+
 
 </project>
