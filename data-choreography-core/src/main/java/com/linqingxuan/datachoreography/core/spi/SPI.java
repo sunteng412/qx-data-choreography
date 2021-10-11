@@ -22,9 +22,10 @@ public @interface SPI {
     String value() default "";
 
     /**
-     * Value string.
+     * dft value string.
      *
      * @return the string
      */
     String dftValue() default "";
+
 }

@@ -1,4 +1,4 @@
-package com.linqingxuan.datachoreography.core.dsl.config;
+package com.linqingxuan.datachoreography.core.dsl;
 
 
 import com.alibaba.fastjson.JSONObject;
@@ -13,7 +13,7 @@ import java.util.Map;
    * @date : 2021/10/7 18:16
   */
  @SPI
-public interface ConfigService {
+public interface DataDslAccessFactory {
 
 
       /**

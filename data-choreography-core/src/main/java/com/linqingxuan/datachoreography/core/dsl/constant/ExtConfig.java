@@ -12,6 +12,12 @@ public enum ExtConfig {
     DB_SPI ("dbSpi","mysql"),
 
     /**
+     * 数据库-数据源spi
+     * */
+    DSL_ACCESS_SPI ("dslAccessSpi","mysql"),
+
+
+    /**
      * 数据库-自动创建表
      * */
     NEED_CREATE_TABLE ("autoCreateTable",Boolean.TRUE);

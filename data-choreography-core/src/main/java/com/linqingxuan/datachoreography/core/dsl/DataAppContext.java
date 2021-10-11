@@ -22,6 +22,12 @@ public class DataAppContext {
     private DataConfig dataConfig;
 
     /**
+     * dsl源配置
+     * */
+    @Setter
+    private DataDslAccessFactory dataDslAccessFactory;
+
+    /**
      * 注入配置
      * @param
      * @return
@@ -38,7 +44,7 @@ public class DataAppContext {
      * @description:
      */
     public static void start(){
-        //加载初始化所有的表
-
+        //预加载所有的数据
+        ExtensionLoader.getExtensionLoader(DataDslAccessFactory.class).getDefaultJoin();
     }
 }

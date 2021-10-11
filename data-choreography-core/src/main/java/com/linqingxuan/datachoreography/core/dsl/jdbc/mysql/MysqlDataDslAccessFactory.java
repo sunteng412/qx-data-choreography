@@ -1,6 +1,7 @@
-package com.linqingxuan.datachoreography.core.dsl.config;
+package com.linqingxuan.datachoreography.core.dsl.jdbc.mysql;
 
 import com.alibaba.fastjson.JSONObject;
+import com.linqingxuan.datachoreography.core.dsl.DataDslAccessFactory;
 
 import java.util.Map;
 
@@ -10,7 +11,7 @@ import java.util.Map;
    * @author : MrFox
    * @date : 2021/10/7 22:02
   */
-public class MysqlConfigService implements ConfigService {
+public class MysqlDataDslAccessFactory implements DataDslAccessFactory {
     @Override
     public Map<String, JSONObject> loaderAll() {
         return null;
