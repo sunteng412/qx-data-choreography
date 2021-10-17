@@ -12,4 +12,7 @@ import com.linqingxuan.datachoreography.core.spi.SPI;
 @SPI
 public interface ServiceChoreography {
 
+
+
+
 }

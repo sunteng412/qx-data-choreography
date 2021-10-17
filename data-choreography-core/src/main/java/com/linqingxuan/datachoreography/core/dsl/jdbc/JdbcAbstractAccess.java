@@ -1,5 +1,6 @@
 package com.linqingxuan.datachoreography.core.dsl.jdbc;
 
+import com.linqingxuan.datachoreography.core.dsl.config.DataConfig;
 import com.linqingxuan.datachoreography.core.dsl.constant.Constants;
 import com.linqingxuan.datachoreography.core.dsl.constant.ExtConfig;
 import com.linqingxuan.datachoreography.core.dsl.file.FileUtils;
@@ -22,9 +23,9 @@ public abstract class JdbcAbstractAccess {
     private SqlTemplate sqlTemplate;
     private Map<String, Object> dataSourceProps;
 
-    public JdbcAbstractAccess(Map<String, Object> dataSourceProps) {
-        this.dataSourceProps = dataSourceProps;
-        this.sqlTemplate = SqlTemplateFactory.create(dataSourceProps);
+    public JdbcAbstractAccess(DataConfig dataConfig) {
+        this.dataSourceProps = dataConfig.getDataSourceProps();
+        this.sqlTemplate = SqlTemplateFactory.create(dataConfig);
     }
 
     public SqlTemplate getSqlTemplate() {

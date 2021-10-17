@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS `{tableName}` (
     `task_desc` varchar(32) COMMENT '备注',
     `ret_generic_definition` json COMMENT '返回值定义',
     `task_params` json COMMENT '任务参数',
-    `task_type` json COMMENT '任务类型',
+    `task_type` varchar(32) COMMENT '任务类型',
     `location` int(6) DEFAULT '1' COMMENT '任务类型',
     `input_depends_on` varchar(1024) COMMENT '入参依赖于',
     `timeout` int(11) DEFAULT '-1' COMMENT '超时时间',

@@ -56,9 +56,4 @@ public class DubboTaskParams implements Serializable {
      * */
     private String registryAddr;
 
-    /**
-     * 输入类型定义
-     * */
-    private List<InputDefinition> inputDefinitions;
-
 }

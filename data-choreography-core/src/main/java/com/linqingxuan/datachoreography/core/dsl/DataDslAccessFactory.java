@@ -1,8 +1,12 @@
 package com.linqingxuan.datachoreography.core.dsl;
 
 
-import com.alibaba.fastjson.JSONObject;
+import com.linqingxuan.datachoreography.core.dsl.config.DataConfig;
+import com.linqingxuan.datachoreography.core.dsl.constant.ExtConfig;
+import com.linqingxuan.datachoreography.core.dsl.jdbc.JDBCDataAccessAdapterFactory;
+import com.linqingxuan.datachoreography.core.spi.ExtensionLoader;
 import com.linqingxuan.datachoreography.core.spi.SPI;
+import lombok.Getter;
 
 import java.util.Map;
 
@@ -12,8 +16,16 @@ import java.util.Map;
    * @author : MrFox
    * @date : 2021/10/7 18:16
   */
- @SPI
-public interface DataDslAccessFactory {
+ @SPI(value = "jdbc")
+public abstract class DataDslAccessFactory {
+
+     @Getter
+    public JDBCDataAccessAdapterFactory jdbcDataAccessAdapterFactory;
+
+     void init(DataConfig dataConfig){
+         jdbcDataAccessAdapterFactory = ExtensionLoader.getExtensionLoader(JDBCDataAccessAdapterFactory.class)
+                 .getJoin(ExtConfig.getParams(dataConfig.getDataProps(),ExtConfig.DATA_DSL_ACCESS));
+     }
 
 
       /**
@@ -22,7 +34,7 @@ public interface DataDslAccessFactory {
         * @author : MrFox
         * @date : 2021/10/7 18:18
        */
-    Map<String, JSONObject> loaderAll();
+    public abstract Map<Long, ChoreographyData> loaderAll();
 
 
     /**
@@ -31,5 +43,6 @@ public interface DataDslAccessFactory {
      * @author : MrFox
      * @date : 2021/10/7 18:18
      */
-    JSONObject loaderByDslId();
+    public abstract ChoreographyData loaderByDslId(Long dslId);
+
 }

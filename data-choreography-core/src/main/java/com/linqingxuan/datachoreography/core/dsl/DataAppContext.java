@@ -1,8 +1,10 @@
 package com.linqingxuan.datachoreography.core.dsl;
 
 import com.linqingxuan.datachoreography.core.dsl.config.DataConfig;
+import com.linqingxuan.datachoreography.core.dsl.constant.ExtConfig;
 import com.linqingxuan.datachoreography.core.dsl.jdbc.datasource.DataSourceProvider;
 import com.linqingxuan.datachoreography.core.spi.ExtensionLoader;
+import lombok.Getter;
 import lombok.Setter;
 
 /**
@@ -13,19 +15,22 @@ import lombok.Setter;
  * @version    :
  */
 public class DataAppContext {
+
     private static final DataAppContext DATA_APP_CONTEXT = new DataAppContext();
 
     /**
      * 配置
      * */
     @Setter
-    private DataConfig dataConfig;
+    @Getter
+    private static DataConfig dataConfig;
 
     /**
      * dsl源配置
      * */
     @Setter
-    private DataDslAccessFactory dataDslAccessFactory;
+    private static DataDslAccessFactory dataDslAccessFactory;
+
 
     /**
      * 注入配置
@@ -34,7 +39,7 @@ public class DataAppContext {
      * @description:
      */
     public static void initConfig(DataConfig config){
-        DATA_APP_CONTEXT.setDataConfig(config);
+        DataAppContext.setDataConfig(config);
     }
 
     /**
@@ -45,6 +50,10 @@ public class DataAppContext {
      */
     public static void start(){
         //预加载所有的数据
-        ExtensionLoader.getExtensionLoader(DataDslAccessFactory.class).getDefaultJoin();
+        DataDslAccessFactory tempDataDslAccessFactory = ExtensionLoader.getExtensionLoader(DataDslAccessFactory.class)
+                .getJoin(ExtConfig.getParams(dataConfig.getDataProps(),ExtConfig.DATASOURCE_DSL_ACCESS));
+        tempDataDslAccessFactory.init(dataConfig);
+
+        dataDslAccessFactory = tempDataDslAccessFactory;
     }
 }

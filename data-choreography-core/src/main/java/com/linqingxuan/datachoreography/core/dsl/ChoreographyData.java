@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 编排数据语言实体
@@ -48,7 +49,7 @@ public class ChoreographyData implements Serializable {
     /**
      * dsl 返回参数映射
      * */
-    private List<Tuple2<String,String>> outputs;
+    private Map<String,String> outputs;
 
 
 }

@@ -1,5 +1,6 @@
 package com.linqingxuan.datachoreography.core.dsl.jdbc.mysql;
 
+import com.linqingxuan.datachoreography.core.dsl.config.DataConfig;
 import com.linqingxuan.datachoreography.core.dsl.jdbc.JdbcAbstractAccess;
 
 import java.util.Map;
@@ -12,8 +13,8 @@ import java.util.Map;
  * @version    :
  */
 public abstract class MysqlJdbcAbstractAccess extends JdbcAbstractAccess {
-    public MysqlJdbcAbstractAccess(Map<String, Object> dataSourceProps) {
-        super(dataSourceProps);
+    public MysqlJdbcAbstractAccess(DataConfig dataConfig) {
+        super(dataConfig);
     }
 
     protected abstract String getTableName();

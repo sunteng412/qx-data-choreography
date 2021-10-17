@@ -7,9 +7,14 @@ import java.util.Map;
 public enum ExtConfig {
 
     /**
+     * 数据源spi
+     * */
+    DATASOURCE_DSL_ACCESS("dataSourceDslAccess","jdbc"),
+
+    /**
      * 数据库-数据源spi
      * */
-    DB_SPI ("dbSpi","mysql"),
+    DATA_DSL_ACCESS("dataDslAccess","mysql"),
 
     /**
      * 数据库-数据源spi

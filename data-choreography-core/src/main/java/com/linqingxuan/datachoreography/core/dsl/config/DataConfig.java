@@ -20,6 +20,11 @@ public class DataConfig {
     private Map<String, Object> dataSourceProps;
 
     /**
+     * 数据配置
+     * */
+    private Map<String, Object> dataProps;
+
+    /**
      * 是否初始化表
      * */
     private Boolean autoCreateTable = Boolean.TRUE;

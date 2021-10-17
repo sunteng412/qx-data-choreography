@@ -4,6 +4,7 @@ package com.linqingxuan.datachoreography.core.dsl;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,12 @@ import java.util.Map;
 public class TaskNode implements Serializable {
 
     private static final long serialVersionUID = -5795089018013798231L;
+
+    /**
+     * 父属task
+     * */
+    private List<TaskNode> parentNode;
+
 
     /**
      * 下属task
@@ -47,10 +54,16 @@ public class TaskNode implements Serializable {
     /**
      * 所在第N个
      * */
-    private String location;
+    private Integer location;
 
     /**
      * timeout 单位：毫秒值
      * */
-    private Integer timeout;
+    private Long timeout;
+
+    /**
+     * 输入类型定义
+     * */
+    private Map<String,String> inputDependsOn;
+
 }
