@@ -64,6 +64,6 @@ public class TaskNode implements Serializable {
     /**
      * 输入类型定义
      * */
-    private Map<String,String> inputDependsOn;
+    private Map<String,TaskInputDependsOn> inputDependsOn;
 
 }

@@ -21,10 +21,10 @@ import java.util.Map;
 public abstract class JdbcAbstractAccess {
 
     private SqlTemplate sqlTemplate;
-    private Map<String, Object> dataSourceProps;
+    private DataConfig dataConfig;
 
     public JdbcAbstractAccess(DataConfig dataConfig) {
-        this.dataSourceProps = dataConfig.getDataSourceProps();
+        this.dataConfig = dataConfig;
         this.sqlTemplate = SqlTemplateFactory.create(dataConfig);
     }
 
@@ -47,7 +47,7 @@ public abstract class JdbcAbstractAccess {
     }
 
     protected void createTable(String sql) throws JdbcException {
-        if (ExtConfig.getParams(dataSourceProps,ExtConfig.NEED_CREATE_TABLE)) {
+        if (ExtConfig.getParams(dataConfig.getDataProps(),ExtConfig.NEED_CREATE_TABLE)) {
             try {
                 getSqlTemplate().createTable(sql);
             } catch (Exception e) {

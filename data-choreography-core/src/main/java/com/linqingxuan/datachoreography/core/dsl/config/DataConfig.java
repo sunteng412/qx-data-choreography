@@ -24,11 +24,6 @@ public class DataConfig {
      * */
     private Map<String, Object> dataProps;
 
-    /**
-     * 是否初始化表
-     * */
-    private Boolean autoCreateTable = Boolean.TRUE;
-
 
 
 }

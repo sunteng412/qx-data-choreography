@@ -1,5 +1,7 @@
 package com.linqingxuan.datachoreography.springboot;
 
+import com.linqingxuan.datachoreography.core.dsl.DataAppContext;
+import com.linqingxuan.datachoreography.core.dsl.config.DataConfig;
 import com.linqingxuan.datachoreography.core.dsl.jdbc.dbutils.DataSourceUtil;
 import com.linqingxuan.datachoreography.springboot.utils.PropertyUtil;
 import lombok.SneakyThrows;
@@ -33,7 +35,7 @@ public class SpringBootConfiguration implements EnvironmentAware {
     @Override
     public void setEnvironment(Environment environment) {
         //初始化数据源
-
+        initDataConfig(environment);
     }
 
     /**
@@ -42,12 +44,23 @@ public class SpringBootConfiguration implements EnvironmentAware {
      * @return
      * @description:
      */
-    private DataSource getDataSource(final Environment environment) throws ReflectiveOperationException, NamingException {
+    private Boolean initDataConfig(final Environment environment) throws ReflectiveOperationException, NamingException {
         String dataSourcePrefix = "data-choreography.datasource.";
-        Map<String, Object> dataSourceProps = PropertyUtil.handle(environment, dataSourcePrefix , Map.class);
-        Assert.notEmpty(dataSourceProps,"错误的数据源配置");
+        String configPrefix = "data-choreography.config.";
 
-        return DataSourceUtil.getDataSource(dataSourceProps.get("type").toString(), dataSourceProps);
+
+        Map<String, Object> dataSourceProps = PropertyUtil.handle(environment, dataSourcePrefix , Map.class);
+        Assert.notEmpty(dataSourceProps,"未找到数据源配置");
+
+        Map<String, Object> configProps = PropertyUtil.handle(environment, configPrefix , Map.class);
+        Assert.notEmpty(dataSourceProps,"未找到数据源配置");
+
+        DataConfig dataConfig = new DataConfig();
+        dataConfig.setDataProps(configProps);
+        dataConfig.setDataSourceProps(dataSourceProps);
+        DataAppContext.initConfig(dataConfig);
+        DataAppContext.start();
+        return Boolean.TRUE;
     }
 
 }

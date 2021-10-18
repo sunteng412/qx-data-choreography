@@ -3,10 +3,7 @@ package com.linqingxuan.datachoreography.core.dsl.jdbc.mysql.convert;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import com.linqingxuan.datachoreography.core.dsl.ChoreographyData;
-import com.linqingxuan.datachoreography.core.dsl.RetGenericDefinition;
-import com.linqingxuan.datachoreography.core.dsl.TaskNode;
-import com.linqingxuan.datachoreography.core.dsl.TaskTree;
+import com.linqingxuan.datachoreography.core.dsl.*;
 import com.linqingxuan.datachoreography.core.dsl.jdbc.mysql.DslConfig;
 import com.linqingxuan.datachoreography.core.dsl.jdbc.mysql.DslTaskConfig;
 import lombok.AccessLevel;
@@ -26,7 +23,9 @@ import java.util.stream.Collectors;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ChoreographyDataDomain {
 
-     private static final TypeReference<Map<String,String>> PUTS_CONFIG = new TypeReference<Map<String,String>>(){};
+     private static final TypeReference<Map<String,String>> OUTPUTS_CONFIG = new TypeReference<Map<String,String>>(){};
+
+    private static final TypeReference<Map<String, TaskInputDependsOn>> INPUT_DEPENDS_ON_CONFIG = new TypeReference<Map<String,TaskInputDependsOn>>(){};
 
     private static final TypeReference<Map<String,Object>> TASK_PARAMS_CONFIG = new TypeReference<Map<String,Object>>(){};
 
@@ -43,7 +42,7 @@ public class ChoreographyDataDomain {
         choreographyData.setDslDesc(config.getDslDesc());
         choreographyData.setId(config.getId());
         choreographyData.setName(config.getName());
-        choreographyData.setOutputs(JSON.parseObject(config.getOutputs(),PUTS_CONFIG));
+        choreographyData.setOutputs(JSON.parseObject(config.getOutputs(),OUTPUTS_CONFIG));
 
         List<TaskNode> taskNodes = convertTaskNode(taskByDslId);
         choreographyData.setAllTaskNode(taskNodes);
@@ -60,7 +59,7 @@ public class ChoreographyDataDomain {
             taskNode.setLocation(e.getLocation());
             taskNode.setTimeout(e.getTimeout());
             taskNode.setRetGenericDefinition(JSON.parseObject(e.getRetGenericDefinition(), RetGenericDefinition.class));
-            taskNode.setInputDependsOn(JSON.parseObject(e.getInputDependsOn(),PUTS_CONFIG));
+            taskNode.setInputDependsOn(JSON.parseObject(e.getInputDependsOn(),INPUT_DEPENDS_ON_CONFIG));
             taskNode.setTaskParams(JSON.parseObject(e.getTaskParams(),TASK_PARAMS_CONFIG));
             return taskNode;
         }).collect(Collectors.toList());
