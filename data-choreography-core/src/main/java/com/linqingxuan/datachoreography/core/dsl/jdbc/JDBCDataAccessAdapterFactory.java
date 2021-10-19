@@ -17,6 +17,15 @@ import java.util.List;
 public interface JDBCDataAccessAdapterFactory {
 
     /**********************
+     * 初始化mysql查询
+     * @param
+     * @return
+     * @description //TODO
+     * @date 23:31 2021/10/13
+     **********************/
+    void init();
+
+    /**********************
      * 获取所有配置
      * @param
      * @return

@@ -21,6 +21,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.config.PlaceholderConfigurerSupport;
+import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.PropertyResolver;
 
@@ -30,6 +31,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class PropertyUtil {
@@ -104,7 +106,7 @@ public final class PropertyUtil {
         }
         return Collections.unmodifiableMap(propertiesWithPlaceholderResolved);
     }
-    
+
     @SneakyThrows
     private static Object v2(final Environment environment, final String prefix, final Class<?> targetClass) {
         Class<?> binderClass = Class.forName("org.springframework.boot.context.properties.bind.Binder");
@@ -112,8 +114,16 @@ public final class PropertyUtil {
         Method bindMethod = binderClass.getDeclaredMethod("bind", String.class, Class.class);
         Object binderObject = getMethod.invoke(null, environment);
         String prefixParam = prefix.endsWith(".") ? prefix.substring(0, prefix.length() - 1) : prefix;
-        Object bindResultObject = bindMethod.invoke(binderObject, prefixParam, targetClass);
+
+        Object bindResultObject  = bindMethod.invoke(binderObject, prefixParam, targetClass);
+
         Method resultGetMethod = bindResultObject.getClass().getDeclaredMethod("get");
+
+        BindResult bindResult = (BindResult) bindResultObject;
+        if(!bindResult.isBound()){
+            //没有属性则返回空
+            return null;
+        }
         return resultGetMethod.invoke(bindResultObject);
     }
 }

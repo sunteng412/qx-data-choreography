@@ -1,6 +1,7 @@
 package com.linqingxuan.datachoreography.core.dsl.constant;
 
 import lombok.Getter;
+import org.apache.commons.collections4.MapUtils;
 
 import java.util.Map;
 
@@ -36,7 +37,7 @@ public enum ExtConfig {
 
 
     public static <F> F getParams( Map<String, Object> objectMap,ExtConfig extConfig){
-        return (F) objectMap.getOrDefault(extConfig.fieldName,extConfig.dftValue);
+        return (F) (MapUtils.isEmpty(objectMap) ? extConfig.dftValue : objectMap.getOrDefault(extConfig.fieldName,extConfig.dftValue));
     }
 
     ExtConfig(String fieldName, Object dftValue) {

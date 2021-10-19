@@ -45,15 +45,14 @@ public class SpringBootConfiguration implements EnvironmentAware {
      * @description:
      */
     private Boolean initDataConfig(final Environment environment) throws ReflectiveOperationException, NamingException {
-        String dataSourcePrefix = "data-choreography.datasource.";
-        String configPrefix = "data-choreography.config.";
+        String dataSourcePrefix = "data-choreography.datasource";
+        String configPrefix = "data-choreography.config";
 
 
         Map<String, Object> dataSourceProps = PropertyUtil.handle(environment, dataSourcePrefix , Map.class);
         Assert.notEmpty(dataSourceProps,"未找到数据源配置");
 
         Map<String, Object> configProps = PropertyUtil.handle(environment, configPrefix , Map.class);
-        Assert.notEmpty(dataSourceProps,"未找到数据源配置");
 
         DataConfig dataConfig = new DataConfig();
         dataConfig.setDataProps(configProps);

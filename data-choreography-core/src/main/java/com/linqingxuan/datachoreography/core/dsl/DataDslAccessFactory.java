@@ -22,7 +22,9 @@ public abstract class DataDslAccessFactory {
      @Getter
     public JDBCDataAccessAdapterFactory jdbcDataAccessAdapterFactory;
 
-     void init(DataConfig dataConfig){
+
+
+    void init(DataConfig dataConfig){
          jdbcDataAccessAdapterFactory = ExtensionLoader.getExtensionLoader(JDBCDataAccessAdapterFactory.class)
                  .getJoin(ExtConfig.getParams(dataConfig.getDataProps(),ExtConfig.DATA_DSL_ACCESS));
      }

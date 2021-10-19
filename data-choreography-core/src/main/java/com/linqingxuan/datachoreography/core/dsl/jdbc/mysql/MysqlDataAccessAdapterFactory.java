@@ -21,6 +21,11 @@ public class MysqlDataAccessAdapterFactory implements JDBCDataAccessAdapterFacto
 
     private static final Object lock = new Object();
 
+    public MysqlDataAccessAdapterFactory() {
+        super();
+        init();
+    }
+
     /**********************
      * 初始化mysql查询
      * @param
@@ -28,6 +33,7 @@ public class MysqlDataAccessAdapterFactory implements JDBCDataAccessAdapterFacto
      * @description //TODO
      * @date 23:31 2021/10/13
     **********************/
+    @Override
     public void init(){
         if(Objects.isNull(mysqlDataDslAccess) && Objects.isNull(mysqlDataDslTaskAccess)){
             synchronized (lock){
@@ -42,7 +48,6 @@ public class MysqlDataAccessAdapterFactory implements JDBCDataAccessAdapterFacto
 
     @Override
     public List<ChoreographyData> getAllDsl() {
-        init();
         int page = 0;
         Integer pageSize = 1000;
         Tuple2<Boolean, List<DslConfig>> tuple2 = new Tuple2<>(Boolean.TRUE,null);
@@ -66,7 +71,6 @@ public class MysqlDataAccessAdapterFactory implements JDBCDataAccessAdapterFacto
 
     @Override
     public ChoreographyData getDslByDslId(Long dslId) {
-        init();
         DslConfig dslConfig = mysqlDataDslAccess.queryConfigById(dslId);
         List<DslTaskConfig> taskByDslId = mysqlDataDslTaskAccess.getTaskByDslId(dslConfig.getId());
         Assert.notEmpty(taskByDslId, "子任务不能为空");

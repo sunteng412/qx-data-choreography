@@ -50,9 +50,9 @@ public final class ExtensionLoader<T> {
         if (clazz == null) {
             throw new NullPointerException("extension clazz is null");
         }
-        if (!clazz.isInterface()) {
-            throw new IllegalArgumentException("extension clazz (" + clazz + ") is not interface!");
-        }
+//        if (!clazz.isInterface()) {
+//            throw new IllegalArgumentException("extension clazz (" + clazz + ") is not interface!");
+//        }
         if (!clazz.isAnnotationPresent(SPI.class)) {
             throw new IllegalArgumentException("extension clazz (" + clazz + ") without @" + SPI.class + " Annotation");
         }

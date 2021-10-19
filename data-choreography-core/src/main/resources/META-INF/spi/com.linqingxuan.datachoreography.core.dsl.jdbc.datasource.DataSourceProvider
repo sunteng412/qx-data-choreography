@@ -1,1 +1,1 @@
-jdbc=com.linqingxuan.datachoreography.core.dsl.jdbc.JdbcDataDslAccessFactory
+mysql=com.linqingxuan.datachoreography.core.dsl.jdbc.datasource.MysqlDataSourceProvider
